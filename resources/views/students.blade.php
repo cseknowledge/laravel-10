@@ -17,8 +17,8 @@
             <tr>
                 <td>{{ $user->id }}</td>
                 <td>{{ $user->name }}</td>
-                <td><a href='edit/{{ $user->id }}'>Edit</a></td>
-                <td><a href='delete/{{ $user->id }}'>Delete</a></td>
+                <td><a href='/edit/{{ $user->id }}'>Edit</a></td>
+                <td><a href='/delete/{{ $user->id }}'>Delete</a></td>
             </tr>
         @endforeach
     </table>

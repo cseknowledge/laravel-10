@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use Illuminate\Auth\Events\Registered;
+use App\Events\StudentNameUpdate;
+use App\Events\PurchaseSuccessful;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use App\Listeners\StoreSudentPreviousName;
+use App\Listeners\UpdateInventoryAfterPurchase;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
@@ -18,6 +22,14 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        StudentNameUpdate::class => [
+            StoreSudentPreviousName::class,
+        ],
+
+        PurchaseSuccessful::class => [
+            UpdateInventoryAfterPurchase::class,
+        ]
     ];
 
     /**

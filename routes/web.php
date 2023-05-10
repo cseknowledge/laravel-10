@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Product;
+use App\Models\Purchase;
+use PhpParser\Node\Stmt\Foreach_;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,3 +68,23 @@ Route::get('ajax',function() {
    return view('ajax_view');
 });
 Route::post('/getmsg','AjaxController@index');
+
+Route::get('purchase',function() {
+    $products = Product::inRandomOrder()->limit(2)->get();
+    $items = [];
+    foreach ($products as $product) {
+        $item = [
+            'id' => $product->id,
+            'name' => $product->name,
+            'price' => $product->price,
+            'quantity' => rand(2,10),
+        ];
+        array_push($items, $item);
+    }
+    Purchase::Create([
+        'name' => 'Md. Arif Dewan',
+        'address' => 'Address',
+        'contact' => '01711266873',
+        'items' => json_encode($items),
+    ]);
+});

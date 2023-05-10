@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Events\StudentNameUpdate;
 
 class StudInsertController extends Controller
 {
@@ -74,7 +75,17 @@ class StudInsertController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $student = DB::select('select * from students where id = ?',[$id]);
         $name = $request->input('stud_name');
+
+        //__Event calling StudentNameUpdate__//
+        $eventData = [
+            'current_name' => $student[0]->name,
+            'previous_name' => $name
+        ];
+
+        event(new StudentNameUpdate($eventData));
+
         DB::update('update students set name = ? where id = ?',[$name,$id]);
         echo "Record updated successfully.<br/>";
         echo '<a href = "/students">Click Here</a> to go back.';
