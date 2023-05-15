@@ -12,9 +12,9 @@ class MailController extends Controller {
         $data = array('name'=>"Arif Dewan");
 
         Mail::send(['text'=>'mail'], $data, function($message) {
-            $message->to('cseknowledge@gmail.com', 'Tutorials Point')->subject
+            $message->to('user2@girasmail.com', 'Tutorials Point')->subject
                 ('Laravel Basic Testing Mail');
-            $message->from('cseknowledge@gmail.com','Arif Dewan');
+            $message->from('user1@girasmail.com','Arif Dewan');
         });
         echo "Basic Email Sent. Check your inbox.";
     }
